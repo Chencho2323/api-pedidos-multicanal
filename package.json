@@ -1,0 +1,22 @@
+{
+  "name": "api-pedidos-multicanal",
+  "version": "0.1.0",
+  "description": "API que unifica pedidos de Rappi, Glovo, PedidosYa y Shopify en un solo modelo interno.",
+  "type": "module",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "test": "node --test",
+    "test:uno": "node --test test/dinero.test.js"
+  },
+  "keywords": [
+    "pedidos",
+    "multicanal",
+    "rappi",
+    "glovo",
+    "shopify"
+  ],
+  "license": "MIT"
+}
