@@ -12,6 +12,7 @@
 import { randomUUID } from "node:crypto";
 
 import { MONEDA_POR_DEFECTO, sumar } from "./dinero.js";
+import { ESTADO_INICIAL, normalizarEstado } from "./estado.js";
 
 /** Canales soportados por el modelo. */
 export const CANALES = Object.freeze(["rappi", "glovo", "pedidosya", "shopify"]);
@@ -153,11 +154,13 @@ function normalizarCliente(cliente) {
  * - Un pedido necesita al menos una linea y no admite SKU repetidos.
  * - La suma de los pagos no puede superar el total del pedido.
  * - El identificador interno se genera aqui; la clave externa es la del canal.
+ * - Todo pedido nace en el estado inicial de la maquina de estados.
  */
 export function crearPedido({
   canal,
   claveExterna,
   creadoEn = new Date(),
+  estado = ESTADO_INICIAL,
   moneda = MONEDA_POR_DEFECTO,
   lineas,
   pagos = [],
@@ -202,6 +205,7 @@ export function crearPedido({
     canal: canalCanonico,
     claveExterna: clave,
     creadoEn: aFechaISO(creadoEn, "La fecha del pedido"),
+    estado: normalizarEstado(estado),
     moneda: monedaCanonica,
     lineas: lineasCanonicas,
     pagos: pagosCanonicos,
